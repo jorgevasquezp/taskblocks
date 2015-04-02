@@ -50,10 +50,10 @@ import taskblocks.utils.Utils;
 
 public class TaskGraphComponent extends JComponent implements ComponentListener, AdjustmentListener {
 	
-	static int ROW_HEIGHT = 30;
-	private static int DEFAULT_DAY_WIDTH = 10;
-	static int CONN_PADDING_FACTOR = 6;
-	private static int HEADER_HEIGHT = 20;
+	static int ROW_HEIGHT = 60;
+	private static int DEFAULT_DAY_WIDTH = 20;
+	static int CONN_PADDING_FACTOR = 8;
+	private static int HEADER_HEIGHT = 40;
 	
 	// how far from task left/right boundary will the mouse press will be recognized as pressing the boundary?
 	private static final int TOLERANCE = 5;
@@ -503,14 +503,16 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 		
 		g2.fillRect(_graphLeft-_headerWidth, _graphTop-HEADER_HEIGHT, _headerWidth, HEADER_HEIGHT);
 		g2.setColor(Color.WHITE);
-		g2.drawString("Worker", _graphLeft-_headerWidth + 8, _graphTop-HEADER_HEIGHT + (fm.getHeight() + HEADER_HEIGHT)/2 - fm.getDescent() );
+		g2.drawString("Artist", _graphLeft-_headerWidth + 8, _graphTop-HEADER_HEIGHT + (fm.getHeight() + HEADER_HEIGHT)/2 - fm.getDescent() );
 		
 		Color darkHeaderCol = Colors.TASKS_TOP_HEADER_COLOR.darker().darker();
 		Color lightHeaderCol = Colors.TASKS_TOP_HEADER_COLOR.brighter().brighter();
 		g2.setColor(darkHeaderCol);
+		g2.setColor(new Color(180,180,180));
 		g2.drawRect(_graphLeft-_headerWidth, _graphTop-HEADER_HEIGHT, _graphWidth+_headerWidth-1, HEADER_HEIGHT+_graphHeight-1);
 		g2.drawLine(_graphLeft-_headerWidth, _graphTop, _graphLeft+_graphWidth, _graphTop);
 		g2.setColor(lightHeaderCol);
+		g2.setColor(new Color(180,180,255));
 		g2.drawLine(_graphLeft-_headerWidth+1, _graphTop-1, _graphLeft-_headerWidth+1, _graphTop-HEADER_HEIGHT+1);
 		g2.drawLine(_graphLeft-_headerWidth+1, _graphTop-HEADER_HEIGHT+1, _graphLeft-1, _graphTop-HEADER_HEIGHT+1);
 	}
@@ -549,17 +551,19 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 
 			// draw the date string
 			if((time/7) % skip == 0) {
-				DateFormat df = new SimpleDateFormat("d.M.");
+				DateFormat df = new SimpleDateFormat("dd/M");
 				String timeFormatted = df.format(new Date(time*Utils.MILLISECONDS_PER_DAY));
 				g2.setColor(Color.WHITE);
 				g2.drawString(timeFormatted, x+4, _graphTop-HEADER_HEIGHT + (fm.getHeight() + HEADER_HEIGHT)/2 - fm.getDescent() -1 );
-				g2.setColor(darkHeaderCol);
+				g2.setColor(new Color(50,50,50));
+				//g2.setColor(darkHeaderCol);
 			}
 		}
 		
 		// paint the scale on the top
 		//g2.setColor(new Color(100,10,5));
 		g2.setColor(darkHeaderCol);
+		
 		x = 0;
 		for(int i = 0; x < mostRight; i++) {
 			long time = _firstDay + i;
@@ -583,6 +587,7 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 		// paint today line
 		long time = System.currentTimeMillis()/ Utils.MILLISECONDS_PER_DAY;
 		g2.setColor(new Color(255,0,0,100));
+		//g2.setColor(new Color(50,50,50));
 		x = timeToX(time);
 		g2.drawLine(x, _graphTop, x, _graphTop + _graphHeight);
 		
