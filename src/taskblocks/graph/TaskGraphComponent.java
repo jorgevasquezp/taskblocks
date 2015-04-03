@@ -524,7 +524,8 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 		
 		g2.setColor(Colors.TASKS_TOP_HEADER_COLOR);
 		g2.fillRect(_graphLeft+1, _graphTop-HEADER_HEIGHT+1, _graphWidth-2, HEADER_HEIGHT-1);
-		g2.setColor(Color.WHITE);
+		//g2.setColor(Color.WHITE);
+		g2.setColor(Colors.GRID_COLOR_A);
 
 		int skip = 1;
 		if(_dayWidth < 10) {
@@ -555,8 +556,8 @@ public class TaskGraphComponent extends JComponent implements ComponentListener,
 				String timeFormatted = df.format(new Date(time*Utils.MILLISECONDS_PER_DAY));
 				g2.setColor(Color.WHITE);
 				g2.drawString(timeFormatted, x+4, _graphTop-HEADER_HEIGHT + (fm.getHeight() + HEADER_HEIGHT)/2 - fm.getDescent() -1 );
-				g2.setColor(new Color(50,50,50));
-				//g2.setColor(darkHeaderCol);
+				//g2.setColor(new Color(50,50,50));
+				g2.setColor(darkHeaderCol);
 			}
 		}
 		
